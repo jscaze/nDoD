@@ -157,3 +157,17 @@ services:
       KAFKA_BROKERCONNECT: "broker:29092,localhost:9092"
       JVM_OPTS: "-Xms16M -Xmx48M -Xss180K -XX:-TieredCompilation -XX:+UseStringDeduplication -noverify"
 
+  postgres:
+    # *-----------------------------*
+    # To connect to the DB:
+    #   docker-compose exec postgres bash -c 'psql -U $POSTGRES_USER $POSTGRES_DB'
+    # *-----------------------------*
+    image: postgres:11
+    container_name: postgres
+    ports:
+      - "5000:5432"
+    environment:
+     - POSTGRES_USER=postgres
+     - POSTGRES_PASSWORD=postgrespwd
+    volumes:
+     - ./data/postgres:/docker-entrypoint-initdb.d/

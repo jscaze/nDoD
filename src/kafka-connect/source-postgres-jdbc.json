@@ -1,0 +1,13 @@
+{
+ "name": "nDoD-personn-connector",
+ "config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+    "connection.url": "jdbc:postgresql://postgres:5432/postgres",
+    "connection.user": "postgres",
+	"connection.password": "postgrespwd",
+    "topic.prefix": "postgres-src-",
+    "table.whitelist": "personn",
+    "mode":"bulk",
+    "poll.interval.ms" : 3600000
+  }
+}

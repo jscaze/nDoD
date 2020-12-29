@@ -1,0 +1,16 @@
+{
+ "name": "nDoD-personn-connector",
+ "config": {
+ "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+ "tasks.max": "1",
+ "database.hostname": "postgres",
+ "database.port": "5432",
+ "database.user": "postgres",
+ "database.password": "postgrespwd",
+ "database.dbname" : "postgres",
+ "database.server.name": "DockerPosgreSQL",
+ "database.whitelist": "personn",
+ "database.history.kafka.bootstrap.servers": "localhost:9092,broker:29092",
+ "database.history.kafka.topic": "schema-changes.nDoD.personn"
+ }
+}

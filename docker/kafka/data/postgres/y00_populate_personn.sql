@@ -1,0 +1,10 @@
+insert into personn (full_name, nu_personn, country_code, flag_active) values ('Mickey Mouse', '0000000001', 'USA', 'Y');
+insert into personn (full_name, nu_personn, country_code, flag_active) values ('Donald Duck', '0000000002', 'USA', 'Y');
+insert into personn (full_name, nu_personn, country_code, flag_active) values ('Lilo', '0000000003', 'USA', 'Y');
+insert into personn (full_name, nu_personn, country_code, flag_active) values ('Stitch', '0000000004', 'USA', 'Y');
+insert into personn (full_name, nu_personn, country_code, flag_active) values ('Elsa', '0000000005', 'USA', 'Y');
+insert into personn (full_name, nu_personn, country_code, flag_active) values ('Anna', '0000000006', 'USA', 'Y');
+insert into personn (full_name, nu_personn, country_code, flag_active) values ('Olaf', '0000000007', 'USA', 'Y');
+insert into personn (full_name, nu_personn, country_code, flag_active) values ('Sven', '0000000008', 'USA', 'Y');
+insert into personn (full_name, nu_personn, country_code, flag_active) values ('Kristophe', '0000000009', 'USA', 'Y');
+insert into personn (full_name, nu_personn, country_code, flag_active) values ('Minnie Mouse', '0000000010', 'USA', 'Y');
