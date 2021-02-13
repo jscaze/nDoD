@@ -1,0 +1,2 @@
+CREATE USER druid WITH PASSWORD 'druidpwd';
+GRANT ALL PRIVILEGES ON DATABASE postgres TO druid;
