@@ -1,0 +1,3 @@
+airflow/logs/*
+src/airflow/dags/__pycache__/
+src/.idea/
