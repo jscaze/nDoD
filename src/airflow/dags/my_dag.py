@@ -13,7 +13,11 @@ from airflow.operators.bash import BashOperator
 from airflow.utils.dates import days_ago
 
 from airflow.providers.postgres.operators.postgres import PostgresOperator
+from airflow.providers.postgres.hooks.postgres import PostgresHook
+
 from airflow.operators.python import PythonOperator, PythonVirtualenvOperator
+
+import logging
 
 import pandas as pd
 
@@ -46,6 +50,7 @@ default_args = {
 }
 # [END default_args]
 
+
 # [START instantiate_dag]
 dag = DAG(
     'my_DAG',
@@ -56,6 +61,7 @@ dag = DAG(
     tags=['example'],
 )
 # [END instantiate_dag]
+
 
 # t1, t2 and t3 are examples of tasks created by instantiating operators
 # [START basic_task]
@@ -103,6 +109,8 @@ t3 = BashOperator(
     dag=dag,
 )
 
+conn_db_src = PostgresHook(postgres_conn_id='PostgresNDoD')
+sqlalchemy_engine = conn_db_src.get_sqlalchemy_engine()
 
 create_nDoD_tables = PostgresOperator(
       task_id="create_nDoD_tables",
@@ -111,17 +119,28 @@ create_nDoD_tables = PostgresOperator(
       )
 
 
-def load_utp_group(filename, **kwargs):
+def load_utp_group(filename, conn_db, schema_db, **kwargs):
     """Load data into db"""
-    print('file to load : %s', filename )
+
     df = pd.read_csv(filename, sep=';')
+
+    logging.info('CSV in pandas \n %s',df.head().to_string())
+
+    conn = conn_db.connect()
+    conn.execute("TRUNCATE TABLE ndod.utp_group CASCADE")
+    df.to_sql('utp_group', con=conn_db, schema=schema_db, if_exists='append', chunksize=1000, index=False)
+
+    #TO DO : close connection
     return 'Successfully inserted into DB'
 
 
 load_data_utp_group = PythonOperator(
     task_id='load_group_utp',
     python_callable=load_utp_group,
-    op_kwargs={'filename': '/opt/airflow/dags/data/group_utp.csv'},
+    op_kwargs={'filename': '/opt/airflow/dags/data/group_utp.csv',
+               'conn_db': sqlalchemy_engine,
+               'schema_db': 'ndod'
+               },
     dag=dag,
 )
 
